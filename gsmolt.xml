@@ -1,0 +1,533 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkListStore" id="liststore_host">
+    <columns>
+      <!-- column-name Label -->
+      <column type="gchararray"/>
+      <!-- column-name Data -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="liststore_device">
+    <columns>
+      <!-- column-name Bus -->
+      <column type="gchararray"/>
+      <!-- column-name Driver -->
+      <column type="gchararray"/>
+      <!-- column-name Type -->
+      <column type="gchararray"/>
+      <!-- column-name Description -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkWindow" id="window_main">
+    <property name="title" translatable="yes">Smolt</property>
+    <property name="default_width">500</property>
+    <property name="default_height">600</property>
+    <property name="icon_name">applications-internet</property>
+    <signal name="delete_event" handler="on_window_main_delete_event"/>
+    <child>
+      <object class="GtkVBox" id="vbox_main">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkMenuBar" id="menubar_main">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_file">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_File</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu_file">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem_sendprofile">
+                        <property name="visible">True</property>
+                        <property name="related_action">action_sendprofile</property>
+                        <property name="use_action_appearance">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem_mypage">
+                        <property name="visible">True</property>
+                        <property name="related_action">action_mypage</property>
+                        <property name="use_action_appearance">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="menuseparator_file">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem_exit">
+                        <property name="visible">True</property>
+                        <property name="related_action">action_exit</property>
+                        <property name="use_action_appearance">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_help">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Help</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu_help">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem_privacypolicy">
+                        <property name="visible">True</property>
+                        <property name="related_action">action_privacypolicy</property>
+                        <property name="use_action_appearance">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem_about">
+                        <property name="visible">True</property>
+                        <property name="related_action">action_about</property>
+                        <property name="use_action_appearance">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" id="toolbar_main">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkToolItem" id="toolbutton_sendprofile">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkButton" id="button_sendprofile">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="related_action">action_sendprofile</property>
+                    <child>
+                      <object class="GtkVBox" id="vbox_sendprofile">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkImage" id="image_sendprofile">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-media-play</property>
+                          </object>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_sendprofile">
+                            <property name="visible">True</property>
+                            <property name="xpad">5</property>
+                            <property name="ypad">5</property>
+                            <property name="label" translatable="yes">Send Profile</property>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolItem" id="toolbutton_mypage">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkButton" id="button_mypage">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="related_action">action_mypage</property>
+                    <child>
+                      <object class="GtkVBox" id="vbox_mypage">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkImage" id="image_mypage">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-home</property>
+                          </object>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_mypage">
+                            <property name="visible">True</property>
+                            <property name="xpad">5</property>
+                            <property name="ypad">5</property>
+                            <property name="label" translatable="yes">My Smolt Page</property>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolItem" id="toolbutton_privacypolicy">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkButton" id="button_privacypolicy">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="related_action">action_privacypolicy</property>
+                    <child>
+                      <object class="GtkVBox" id="vbox_privacypolicy">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkImage" id="image_privacypolicy">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-dialog-question</property>
+                          </object>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_privacypolicy">
+                            <property name="visible">True</property>
+                            <property name="xpad">5</property>
+                            <property name="ypad">5</property>
+                            <property name="label" translatable="yes">Show Privacy Policy</property>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolItem" id="toolbutton_exit">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkButton" id="button_exit">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="related_action">action_exit</property>
+                    <child>
+                      <object class="GtkVBox" id="vbox_exit">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkImage" id="image_exit">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-quit</property>
+                          </object>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_exit">
+                            <property name="visible">True</property>
+                            <property name="xpad">5</property>
+                            <property name="ypad">5</property>
+                            <property name="label" translatable="yes">Exit</property>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkNotebook" id="notebook1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <child>
+              <object class="GtkVBox" id="vbox1">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow_host">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview_host">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">liststore_host</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn_label">
+                            <property name="title">Label</property>
+                            <property name="reorderable">True</property>
+                            <property name="sort_indicator">True</property>
+                            <property name="sort_column_id">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn_data">
+                            <property name="title">Data</property>
+                            <property name="sort_indicator">True</property>
+                            <property name="sort_column_id">1</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow_device">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="treeview_device">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">liststore_device</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn_bus">
+                            <property name="title">Bus</property>
+                            <property name="reorderable">True</property>
+                            <property name="sort_indicator">True</property>
+                            <property name="sort_column_id">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn_driver">
+                            <property name="title">Driver</property>
+                            <property name="reorderable">True</property>
+                            <property name="sort_indicator">True</property>
+                            <property name="sort_column_id">1</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn_type">
+                            <property name="title">Type</property>
+                            <property name="reorderable">True</property>
+                            <property name="sort_indicator">True</property>
+                            <property name="sort_column_id">2</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn_description">
+                            <property name="title">Description</property>
+                            <property name="reorderable">True</property>
+                            <property name="sort_indicator">True</property>
+                            <property name="sort_column_id">3</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label_general">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">General</property>
+              </object>
+              <packing>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow_distribution">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <child>
+                  <object class="GtkTextView" id="textview_distribution">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="buffer">textbuffer_distribution</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label_distribution">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Distribution</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAction" id="action_sendprofile">
+    <property name="label">Send Profile</property>
+    <property name="stock_id">gtk-network</property>
+    <signal name="activate" handler="on_action_sendprofile_activate"/>
+  </object>
+  <object class="GtkAction" id="action_mypage">
+    <property name="label">My Smolt Page</property>
+    <property name="stock_id">gtk-home</property>
+    <signal name="activate" handler="on_action_mypage_activate"/>
+  </object>
+  <object class="GtkAction" id="action_privacypolicy">
+    <property name="label">Show Privacy Policy</property>
+    <property name="stock_id">gtk-dialog-question</property>
+    <signal name="activate" handler="on_action_privacypolicy_activate"/>
+  </object>
+  <object class="GtkAction" id="action_about">
+    <property name="label">About</property>
+    <property name="stock_id">gtk-about</property>
+    <signal name="activate" handler="on_action_about_activate"/>
+  </object>
+  <object class="GtkAction" id="action_exit">
+    <property name="stock_id">gtk-quit</property>
+    <signal name="activate" handler="on_action_exit_activate"/>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer_distribution"/>
+  <object class="GtkAboutDialog" id="aboutdialog">
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">About GSmolt</property>
+    <property name="modal">True</property>
+    <property name="type_hint">normal</property>
+    <property name="program_name">GSmolt</property>
+    <property name="version">0.1</property>
+    <property name="copyright" translatable="yes">Copyright 2011 by Kamran Riaz Khan</property>
+    <property name="website">http://inspirated.com/</property>
+    <property name="website_label" translatable="yes">Homepage</property>
+    <signal name="response" handler="on_aboutdialog_response"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="aboutdialog_vbox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="aboutdialog_action_area">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMessageDialog" id="privacypolicydialog">
+    <property name="border_width">5</property>
+    <property name="modal">True</property>
+    <property name="type_hint">normal</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="buttons">close</property>
+    <property name="text" translatable="yes">Smolt will only send hardware and basic operating system information to the Fedora smolt server (smoon). The only tie from the database to a submitters machine is the UUID. As long as the submitter does not give out this UUID the submission is anonymous. If at any point in time a user wants to delete his/her profile from the database they need only run
+
+   &lt;tt&gt;smoltDeleteProfile&lt;/tt&gt;
+
+The information sent to the smolt database server should be considered public in that anyone can view the statistics, data and share machine profiles. In many ways smolt is designed to get hardware vendors and other 3rd parties' attention. As such, not only will this information be shared with 3rd parties, we will be using smolt as leverage to gain better support for open source drivers and better support in general.
+
+IP Logging: In Fedora's smolt install all web traffic goes through a proxy server first. This is the only place IP addresses are being logged and they are kept on that server for a period of 4 weeks at which time log rotation removes these logs. The Fedora Project does not aggregate IP addresses in the smolt database. These logs are private and will not be available to the general public.
+
+Users unhappy with this policy should simply not use smolt. Users with questions about this policy should contact the Fedora Infrastructure Team at &lt;tt&gt;admin@fedoraproject.org&lt;/tt&gt;. Also remember that users can delete their profiles at any time using
+
+   &lt;tt&gt;smoltDeleteProfile&lt;/tt&gt;
+
+Thanks for participating and for your interest in our privacy policy. </property>
+    <property name="use_markup">True</property>
+    <signal name="response" handler="on_privacypolicydialog_response"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="privacypolicydialog_vbox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="privacypolicydialog_action_area">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
