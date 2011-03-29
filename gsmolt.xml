@@ -23,7 +23,7 @@
     </columns>
   </object>
   <object class="GtkWindow" id="window_main">
-    <property name="title" translatable="yes">Smolt</property>
+    <property name="title" translatable="yes">GSmolt</property>
     <property name="default_width">500</property>
     <property name="default_height">600</property>
     <property name="icon_name">applications-internet</property>
